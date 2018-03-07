@@ -13,20 +13,31 @@
 			<h2>Search Through Your Playlists and Music</h2>
 		</div>
 
-			<div id="listarea">
+
+		<div id="listarea">
 			<ul id="musiclist">
-			<?php 
+				<?php 
 				$songs=glob("songs/*.mp3");
+				$playlist=glob("songs/*.txt");
 				foreach ($songs as $songsfile) {
 				?>
-	<li class="mp3item"><a href="songs/<?= basename($songsfile); ?>">
-						<?=basename($songsfile);?></a>
-
-					</li>
-			<?php
+				<li class="mp3item"><a href="songs/<?= basename($songsfile); ?>">
+					<?= basename($songsfile);?>
+				</a>
+				</li>
+				<?php 
 			}
 			?>
-				
+			<?php 
+			foreach ($playlist as $playlistfile) {
+			?>
+			<li class="playlistitem"><a href="songs/<?= basename($playlistfile); ?>">
+					<?= basename($playlistfile);?>
+				</a>
+				</li>
+				<?php
+			}
+			?>
 			</ul>
 		</div>
 	</body>
