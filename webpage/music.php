@@ -16,9 +16,14 @@
 
 		<div id="listarea">
 			<ul id="musiclist">
+
 				<?php 
+				if(isset($_REQUEST["playlist"]))
+				$playlist=$_REQUEST["playlist"];
+				if(!isset($playlist))
+				{
 				$songs=glob("songs/*.mp3");
-				$playlist=glob("songs/*.txt");
+				$playlists=glob("songs/*.txt");
 				foreach ($songs as $songsfile) {
 				?>
 				<li class="mp3item"><a href="songs/<?= basename($songsfile); ?>">
@@ -29,7 +34,7 @@
 			}
 			?>
 			<?php 
-			foreach ($playlist as $playlistfile) {
+			foreach ($playlists as $playlistfile) {
 			?>
 			<li class="playlistitem"><a href="songs/<?= basename($playlistfile); ?>">
 					<?= basename($playlistfile);?>
@@ -37,7 +42,23 @@
 				</li>
 				<?php
 			}
-			?>
+		}else
+		{
+			if(@fopen("songs/$playlist","r") OR die("Could not find $playlist!"))
+			{
+			foreach (file("songs/$playlist") as $songsfile) {
+		?>
+		<li class="mp3item"><a href="songs/<?= basename($songsfile); ?>">
+					<?= basename($songsfile);?>
+				</a>
+				</li>
+			<?php
+		
+		}
+		}
+	}
+		
+		?>
 			</ul>
 		</div>
 	</body>
