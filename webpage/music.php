@@ -27,7 +27,20 @@
 				foreach ($songs as $songsfile) {
 				?>
 				<li class="mp3item"><a href="songs/<?= basename($songsfile); ?>">
-					<?= basename($songsfile);?>
+
+					<?php
+					if(filesize($songsfile)>0&&filesize($songsfile)<=1023){
+					 echo basename($songsfile) ."\t\t(".  filesize($songsfile) ."b)";
+					}
+					else 
+						if(filesize($songsfile)>1023&&filesize($songsfile)<=1048575){
+								 echo basename($songsfile) ."\t\t(".  round(filesize($songsfile)/1024,2) ."kb)";
+						}
+						else
+						if(filesize($songsfile)>1048575){
+								 echo basename($songsfile) ."\t\t(". round( filesize($songsfile)/1048576,2) ."mb)";
+						}
+					?>
 				</a>
 				</li>
 				<?php 
